@@ -1,6 +1,6 @@
 # My Food App
 
-/*
+
 * Header
 * - Logo
 * - Nav Items
@@ -15,4 +15,3 @@
 * - Links
 * - Address
 * - Contact
-*/
