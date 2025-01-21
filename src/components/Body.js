@@ -1,14 +1,18 @@
-import RestaurantCard, { withRestaurantPromoted } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import RestaurantCard, { withRestaurantOpened, withRestaurantClosed } from "./RestaurantCard";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../common/useOnlineStatus";
+import UserContext from "../common/UserContext";
 
 const Body = () => {
     const [listOfRestaurants, setListOfRestaurants] = useState([]);
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
     const [searchText, setSearchText] = useState("");
-    const RestaurantCardPromoted = withRestaurantPromoted(RestaurantCard);
+    const RestaurantCardOpened = withRestaurantOpened(RestaurantCard);
+    const RestaurantCardClosed = withRestaurantClosed(RestaurantCard);
+
+    const {loggedInUser, setUserName} = useContext(UserContext);
 
     useEffect(() => {
         fetchData();
@@ -58,12 +62,16 @@ const Body = () => {
                     setFilteredRestaurant(filteredList)
                 }}>Top rated Restaurants</button>
                 </div>
+                <div className="m-4 p-4 flex items-center">
+                    <label>Username :</label>
+                <input className="border m-2" value={loggedInUser} onChange={(e) => setUserName(e.target.value)} />
+                </div>
             </div>
             <div className="flex flex-wrap">
                 {
                     filteredRestaurant.map((restaurant) => (
                         <Link key={restaurant.info.id} to={"restaurants/" + restaurant.info.id}>
-                            {restaurant.info.isOpen ? <RestaurantCardPromoted resData={restaurant}/> : <RestaurantCard resData={restaurant} />}
+                            {restaurant.info.isOpen ? <RestaurantCardOpened resData={restaurant}/> : <RestaurantCardClosed resData={restaurant} />}
                         </Link>
                     ))
                 }
