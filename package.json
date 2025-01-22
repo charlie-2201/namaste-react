@@ -2,8 +2,9 @@
   "name": "namaste-react",
   "version": "1.0.0",
   "description": "This is Namaste React Course",
-  "main": "App.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "parcel index.html",
     "build": "parcel build index.html",
     "test": "jest"
@@ -14,6 +15,7 @@
   },
   "author": "Manik",
   "license": "ISC",
+  "homepage": "https://charlie-2201.github.io/namaste-react/",
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
